@@ -1,8 +1,9 @@
 package epic.sortings
 
 import epic.sortings.bubble.bubbleSort
+import epic.sortings.count.countSort
 import epic.sortings.insertion.insertionSort
-import epic.sortings.inversions.mergeSort
+import epic.sortings.merge.mergeSort
 import epic.sortings.selection.selectionSort
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.spec.style.StringSpec
@@ -47,6 +48,11 @@ class InsertionKtTest: FunSpec ({
     context("merge") {
         withData(testSet) {
             mergeSort(it.first) shouldBe it.second
+        }
+    }
+    context("count") {
+        withData(testSet) {
+            countSort(it.first) shouldBe it.second
         }
     }
 })
