@@ -4,9 +4,9 @@ import epic.sortings.bubble.bubbleSort
 import epic.sortings.count.countSort
 import epic.sortings.insertion.insertionSort
 import epic.sortings.merge.mergeSort
+import epic.sortings.quick.quickSort
 import epic.sortings.selection.selectionSort
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 
@@ -53,6 +53,11 @@ class InsertionKtTest: FunSpec ({
     context("count") {
         withData(testSet) {
             countSort(it.first) shouldBe it.second
+        }
+    }
+    context("quickSort") {
+        withData(testSet) {
+            quickSort(it.first, 0, it.first.size - 1) shouldBe it.second
         }
     }
 })
