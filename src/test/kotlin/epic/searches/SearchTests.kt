@@ -3,10 +3,15 @@ package epic.searches
 import epic.searches.binary.binarySearch
 import epic.searches.cows.cowsLeastMaxDistance
 import epic.searches.easy.easiestSolution
+import epic.searches.functions.EPS
+import epic.searches.functions.getSquaredSquareRoot
 import io.kotest.core.Tuple3
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
+import io.kotest.matchers.doubles.shouldBeLessThan
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import kotlin.math.abs
 
 /*
 1 2 3 4 5 6 7 8 9 10
@@ -88,6 +93,15 @@ class InsertionKtTest: FunSpec({
             Tuple3(3, "1 2 3 100 1000", 99L),
         )) {
             cowsLeastMaxDistance(it.a, it.b.toLongArray()) shouldBe it.c
+        }
+    }
+
+    context("squaredSquare") {
+        withData(listOf(
+            Pair(2.0, 1.0),
+            Pair(18.0, 4.0),
+        )) {
+            abs(getSquaredSquareRoot(it.first) - it.second) shouldBeLessThan EPS
         }
     }
 

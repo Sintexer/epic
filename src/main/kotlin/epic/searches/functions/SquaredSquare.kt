@@ -1,9 +1,10 @@
-package epic.searches.cows
+package epic.searches.functions
 
 import java.io.PrintWriter
 import java.util.*
-import kotlin.math.min
-import kotlin.math.roundToLong
+import kotlin.math.abs
+import kotlin.math.pow
+import kotlin.math.sqrt
 import kotlin.random.Random
 import kotlin.collections.sort as _sort
 import kotlin.collections.sortDescending as _sortDescending
@@ -14,58 +15,45 @@ fun main() {
 }
 
 fun PrintWriter.solve() {
-    val size = readInt()
-    val n = readInt()
-    val coordinates = readLongArray(size)
+    val c = readDouble()
 
-    println(cowsLeastMaxDistance(n, coordinates))
+    val solution = getSquaredSquareRoot(c)
+    println(solution)
 }
 
-fun cowsLeastMaxDistance(n: Int, coordinates: LongArray): Long {
-    val worstCase = coordinates.last() - coordinates.first() + 1
-    val minCase = 1L
-    val distance = binarySearch(minCase, worstCase) { distance ->
-        fits(n, distance, coordinates)
+fun getSquaredSquareRoot(c: Double): Double {
+    val minCase = .0
+    val worstCase = sqrt(c) + 1
+    val solution = binarySearch(minCase, worstCase) {
+        abs(it.pow(2) + sqrt(it) - EPS) < c
     }
-    return distance.first
+    return solution
 }
 
-fun fits(n: Int, distance: Long, coordinates: LongArray): Boolean {
-    var currentCoordinate = 0
-    for (i in 1 until n) {
-        currentCoordinate = getNextCoordinate(currentCoordinate, distance, coordinates)
-        if (currentCoordinate == -1) {
-            return false
-        }
-    }
-    return true
-}
+// x^2 + x^1/2 = C
+// worst = C^1/2 + 1
+// min = 0
 
-fun getNextCoordinate(from: Int, minDistance: Long, coordinates: LongArray): Int {
-    if (from >= coordinates.size) {
-         return -1
-    }
+// good = abs(f(x) - C) < EPS || n >= ITERATIONS
 
-    for (i: Int in from + 1 until coordinates.size) {
-        if (coordinates[i] - coordinates[from] >= minDistance) {
-            return i
-        }
-    }
-    return -1;
-}
+const val EPS = 1.0 / 1_000_000
+const val ITERATIONS = 100
 
-fun binarySearch(l: Long = -1, r: Long, good: (Long) -> Boolean): Pair<Long, Long> {
+fun binarySearch(l: Double = .0, r: Double, good: (Double) -> Boolean): Double {
     var left = l
     var right = r
-    while (right - left > 1) {
+    for (i in 0..ITERATIONS) {
         val middle = (right + left) / 2
         if (good(middle)) {
             left = middle
         } else {
             right = middle
         }
+//        if (left - right < EPS) {
+//            break
+//        }
     }
-    return Pair(left, right)
+    return left
 }
 
 /** IO code start */
