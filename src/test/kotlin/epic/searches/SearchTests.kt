@@ -1,6 +1,7 @@
 package epic.searches
 
 import epic.searches.binary.binarySearch
+import epic.searches.easy.easiestSolution
 import io.kotest.core.Tuple3
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -61,6 +62,25 @@ class InsertionKtTest: FunSpec({
             binarySearch(array, it.second) shouldBe -1
         }
     }
+
+    context("easiestSolution") {
+        withData(listOf(
+            Tuple3(4, 1, 1),
+            Tuple3(5, 1, 2),
+            Tuple3(512, 1, 2),
+            Tuple3(63, 9, 8),
+            Tuple3(2000, 8, 5),
+            Tuple3(616, 1, 9),
+            Tuple3(Integer.MAX_VALUE, 1, 2),
+            Tuple3(1, 10, 10),
+            Tuple3(2, 10, 10),
+            Tuple3(3, 10, 10),
+        )) {
+            easiestSolution(it.a, it.b, it.c) shouldBe easiestSolution(it.a, it.b, it.c)
+//            easiestSolution(it.a, it.b, it.c) shouldBe validationSolution(it.a, it.b, it.c)
+        }
+    }
+
 
 })
 
