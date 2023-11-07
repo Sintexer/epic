@@ -1,6 +1,7 @@
 package epic.searches
 
 import epic.searches.binary.binarySearch
+import epic.searches.cows.cowsLeastMaxDistance
 import epic.searches.easy.easiestSolution
 import io.kotest.core.Tuple3
 import io.kotest.core.spec.style.FunSpec
@@ -81,7 +82,17 @@ class InsertionKtTest: FunSpec({
         }
     }
 
+    context("cows") {
+        withData(listOf(
+            Tuple3(3, "2 5 7 11 15 20", 9L),
+            Tuple3(3, "1 2 3 100 1000", 99L),
+        )) {
+            cowsLeastMaxDistance(it.a, it.b.toLongArray()) shouldBe it.c
+        }
+    }
+
 
 })
 
 private fun toArray(it: Pair<String, Int>) = it.first.split(" ").map { it.toInt() }.toIntArray()
+private fun String.toLongArray() = this.split(" ").map { it.toLong() }.toLongArray()
